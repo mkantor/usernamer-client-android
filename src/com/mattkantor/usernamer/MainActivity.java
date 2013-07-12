@@ -47,15 +47,16 @@ public class MainActivity extends Activity {
 		userData.put("deviceId", deviceId);
 
 		SubmitUserTask task = new SubmitUserTask(this, userData);
-		task.execute(new URL("http://10.0.2.2:9000/users"));
+		task.execute(new URL("http://10.0.2.2:9000/users")); // FIXME: Don't hardcode this URL.
 	}
 
 	/**
 	 * Display the result of user submission.
 	 * @param result
 	 */
-	public void onUserSubmissionComplete(String result) {
+	public void onUserSubmissionComplete(UserSubmissionResult result) {
 		TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
-		resultTextView.setText(result);
+		// TODO: Handle special UI behavior based on result.status.
+		resultTextView.setText(result.message);
 	}
 }
