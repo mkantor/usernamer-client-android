@@ -51,12 +51,19 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * Display the result of user submission.
+	 * Update the UI based on the result of user submission.
 	 * @param result
 	 */
 	public void onUserSubmissionComplete(UserSubmissionResult result) {
 		TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
-		// TODO: Handle special UI behavior based on result.status.
 		resultTextView.setText(result.message);
+
+		// Do some additional UI stuff for certain success/failure cases.
+		if(result.status == UserSubmissionResult.Status.SUCCESS) {
+			findViewById(R.id.submitButton).setEnabled(false);
+		} else if(result.status == UserSubmissionResult.Status.CONFLICT) {
+			EditText usernameField = (EditText) findViewById(R.id.usernameField);
+			usernameField.selectAll();
+		}
 	}
 }
